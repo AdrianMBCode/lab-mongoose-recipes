@@ -28,12 +28,16 @@ mongoose
       creator: "Adrián Martín",
       created: 2023,
     })
+
   })
-  .then(() => {
+  .then((result) => {
+    console.log(result.title);
     return Recipe.insertMany(data)
   })
-  .then(() => {
-    console.log({title: "Curry"})
+  .then((recipes) => {
+    recipes.forEach(recipe => {
+      console.log(`- Recipe Title: ${recipe.title}`)
+    })
   })
   .then(() => {
     return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"},  {duration: 100},  {new: true})
