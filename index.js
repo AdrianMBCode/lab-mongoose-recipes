@@ -17,7 +17,41 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    return Recipe.create ({
+      title: "Curry",
+      level: "Amateur Chef",
+      ingredients: ["chicken", "coco", "cheese", "potato"],
+      cuisine: "Oriental",
+      dishTypes: "other",
+      image: "https://images.media-allrecipes.com/images/75131.jpg",
+      duration: 60,
+      creator: "Adrián Martín",
+      created: 2023,
+    })
+  })
+  .then(() => {
+    return Recipe.insertMany(data)
+  })
+  .then(() => {
+    console.log({title: "Curry"})
+  })
+  .then(() => {
+    return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"},  {duration: 100},  {new: true})
+  })
+  .then(() => {
+    console.log("You updated the recipe")
+  })
+  
+  .then (() => {
+    return Recipe.deleteOne({title: "Carrot Cake"})
+  })
+  .then(() => {
+    console.log("Recipe deleted")
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
+  })
+  .finally(() => {
+    mongoose.connection.close();
+    console.log("Closed MongoDB connection");
   });
